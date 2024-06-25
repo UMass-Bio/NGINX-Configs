@@ -1,5 +1,7 @@
 # NGINX Configs
 
+[![ShellCheck](https://github.com/TommyTran732/NGINX-Configs/actions/workflows/shellcheck.yml/badge.svg)](https://github.com/TommyTran732/Linux-Setup-Scripts/actions/workflows/shellcheck.yml)
+
 These are my NGINX configurations. They are written for Fedora CoreOS's NGINX build with `nginx-mod-stream`.
 
 ## Getting Started
