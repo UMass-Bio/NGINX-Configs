@@ -40,10 +40,9 @@ sudo firewall-cmd --reload
 unpriv curl https://raw.githubusercontent.com/TommyTran732/NGINX-Configs/main/etc/sysctl.d/99-nonlocal-bind.conf | sudo tee /etc/sysctl.d/99-nonlocal-bind.conf
 
 # Setup webroot for NGINX
-sudo mkdir /srv/nginx
 ## Explicitly using /var/srv here because SELinux does not follow symlinks
 sudo semanage fcontext -a -t httpd_sys_content_t "/var/srv/nginx(/.*)?"
-sudo restorecon -Rv /var/srv/nginx
+sudo mkdir -p /srv/nginx
 sudo mkdir -p /srv/nginx/.well-known/acme-challenge
 
 # NGINX hardening
@@ -56,8 +55,8 @@ unpriv curl https://raw.githubusercontent.com/GrapheneOS/infrastructure/main/cer
 ## Explicitly using /var/usrlocal/bin here because SELinux does not follow symlinks
 sudo semanage fcontext -a -t bin_t /var/usrlocal/bin/certbot-ocsp-fetcher
 sudo restorecon -Rv /var/usrlocal/bin/certbot-ocsp-fetcher
-sudo mkdir /var/cache/certbot-ocsp-fetcher/
 sudo semanage fcontext -a -t httpd_config_t "/var/cache/certbot-ocsp-fetcher(/.*)?"
+sudo mkdir -p /var/cache/certbot-ocsp-fetcher/
 
 # Setup nginx-create-session-ticket-keys
 unpriv curl https://raw.githubusercontent.com/GrapheneOS/infrastructure/main/nginx-create-session-ticket-keys | sudo tee /usr/local/bin/nginx-create-session-ticket-keys
