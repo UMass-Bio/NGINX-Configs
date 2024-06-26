@@ -55,6 +55,7 @@ unpriv curl https://raw.githubusercontent.com/GrapheneOS/infrastructure/main/cer
 ## Explicitly using /var/usrlocal/bin here because SELinux does not follow symlinks
 sudo semanage fcontext -a -t bin_t /var/usrlocal/bin/certbot-ocsp-fetcher
 sudo restorecon -Rv /var/usrlocal/bin/certbot-ocsp-fetcher
+sudo chmod u+x /var/usrlocal/bin/certbot-ocsp-fetcher
 sudo semanage fcontext -a -t httpd_config_t "/var/cache/certbot-ocsp-fetcher(/.*)?"
 sudo mkdir -p /var/cache/certbot-ocsp-fetcher/
 
@@ -63,6 +64,7 @@ unpriv curl https://raw.githubusercontent.com/GrapheneOS/infrastructure/main/ngi
 ## Explicitly using /var/usrlocal/bin here because SELinux does not follow symlinks
 sudo semanage fcontext -a -t bin_t /var/usrlocal/bin/nginx-create-session-ticket-keys
 sudo restorecon /var/usrlocal/bin/nginx-create-session-ticket-keys
+sudo chmod u+x /var/usrlocal/bin/nginx-create-session-ticket-keys
 echo 'restorecon -Rv /etc/nginx/session-ticket-keys' | sudo tee -a /usr/local/bin/nginx-create-session-ticket-keys
 
 # Setup nginx-rotate-session-ticket-keys
@@ -70,6 +72,7 @@ unpriv curl https://raw.githubusercontent.com/GrapheneOS/infrastructure/main/ngi
 ## Explicitly using /var/usrlocal/bin here because SELinux does not follow symlinks
 sudo semanage fcontext -a -t bin_t /var/usrlocal/bin/nginx-rotate-session-ticket-keys
 sudo restorecon -Rv /var/usrlocal/bin/nginx-rotate-session-ticket-keys
+sudo chmod u+x /var/usrlocal/bin/nginx-rotate-session-ticket-keys
 sudo sed -i '$i restorecon -Rv /etc/nginx/session-ticket-keys' /var/usrlocal/bin/nginx-rotate-session-ticket-keys
 
 # Download the units
