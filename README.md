@@ -6,7 +6,7 @@ These are my NGINX configurations. They are written for Fedora CoreOS's `nginx-c
 
 ## Getting Started
 
-1. Install `nginx`, `nginx-mod-stream`, and `policycoreutils-python-utils` on Fedora. Makesure `rsync` is available on the OS.
+1. Install `nginx-core`, `nginx-mod-stream`, and `policycoreutils-python-utils` on Fedora. Makesure `rsync` is available on the OS.
 2. Comment out the default server block in `/etc/nginx/nginx.conf`.
 3. Run `setup.sh`
 4. Make a dummy vhost listening on port `80` with the server_name you want.
