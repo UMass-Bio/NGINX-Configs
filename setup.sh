@@ -38,16 +38,18 @@ sudo firewall-cmd --reload
 # This fixes a long standing bug where network-online.target is reached before IPv6 is obtained, which breaks IPv6 pinning.
 # Also, if you are using floating IPs for NGINX stream like I do, you need it anyways
 unpriv curl https://raw.githubusercontent.com/TommyTran732/NGINX-Configs/main/etc/sysctl.d/99-nonlocal-bind.conf | sudo tee /etc/sysctl.d/99-nonlocal-bind.conf
+sudo chmod 644 /etc/sysctl.d/99-nonlocal-bind.conf
 
 # Setup webroot for NGINX
 ## Explicitly using /var/srv here because SELinux does not follow symlinks
 sudo semanage fcontext -a -t httpd_sys_content_t "/var/srv/nginx(/.*)?"
-sudo mkdir -p /srv/nginx
 sudo mkdir -p /srv/nginx/.well-known/acme-challenge
+sudo chmod -R 755 /srv/nginx/.well-known/acme-challenge
 
 # NGINX hardening
 sudo mkdir -p /etc/systemd/system/nginx.service.d
 unpriv curl https://raw.githubusercontent.com/GrapheneOS/infrastructure/main/systemd/system/nginx.service.d/local.conf | sudo tee /etc/systemd/system/nginx.service.d/override.conf
+chmod 644 /etc/systemd/system/nginx.service.d/override.conf
 sudo systemctl daemon-reload
 
 # Setup certbot-ocsp-fetcher
@@ -58,6 +60,7 @@ sudo restorecon -Rv /var/usrlocal/bin/certbot-ocsp-fetcher
 sudo chmod u+x /var/usrlocal/bin/certbot-ocsp-fetcher
 sudo semanage fcontext -a -t httpd_config_t "/var/cache/certbot-ocsp-fetcher(/.*)?"
 sudo mkdir -p /var/cache/certbot-ocsp-fetcher/
+sudo chmod 755 /var/cache/certbot-ocsp-fetcher/
 
 # Setup nginx-create-session-ticket-keys
 unpriv curl https://raw.githubusercontent.com/GrapheneOS/infrastructure/main/nginx-create-session-ticket-keys | sudo tee /usr/local/bin/nginx-create-session-ticket-keys
