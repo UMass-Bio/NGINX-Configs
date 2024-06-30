@@ -53,7 +53,7 @@ chmod 644 /etc/systemd/system/nginx.service.d/override.conf
 sudo systemctl daemon-reload
 
 # Setup certbot-ocsp-fetcher
-unpriv curl https://raw.githubusercontent.com/TommyTran732/NGINX-Configs/main/usr/local/bin/certbot-ocsp-fetcher | sudo tee /usr/local/bin/certbot-ocsp-fetcher
+unpriv curl https://raw.githubusercontent.com/tomwassenberg/certbot-ocsp-fetcher/main/certbot-ocsp-fetcher | sudo tee /usr/local/bin/certbot-ocsp-fetcher
 ## Explicitly using /var/usrlocal/bin here because SELinux does not follow symlinks
 sudo semanage fcontext -a -t bin_t /var/usrlocal/bin/certbot-ocsp-fetcher
 sudo restorecon -Rv /var/usrlocal/bin/certbot-ocsp-fetcher
