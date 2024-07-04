@@ -3,5 +3,3 @@ certbot certonly --webroot --webroot-path /srv/nginx --no-eff-email \
     --deploy-hook "certbot-ocsp-fetcher -o /var/cache/certbot-ocsp-fetcher" \
     --cert-name uptime.yourdomain.tld \
     -d uptime.yourdomain.tld
-
-restorecon -Rv /var/cache/certbot-ocsp-fetcher
