@@ -1,5 +1,4 @@
 certbot certonly --webroot --webroot-path /srv/nginx --no-eff-email \
-    --key-type ecdsa --must-staple \
-    --deploy-hook "certbot-ocsp-fetcher -o /var/cache/certbot-ocsp-fetcher" \
+    --key-type ecdsa
     --cert-name hostname.of.your.server \
     -d hostname.of.your.server
