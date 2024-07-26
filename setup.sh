@@ -44,7 +44,7 @@ sudo chmod 644 /etc/sysctl.d/99-nonlocal-bind.conf
 
 # Setup webroot for NGINX
 ## Explicitly using /var/srv here because SELinux does not follow symlinks
-sudo semanage fcontext -a -t httpd_sys_content_t "/var/srv/nginx(/.*)?"
+sudo semanage fcontext -a -t httpd_sys_content_t "$(realpath /srv/nginx)(/.*)?"
 sudo mkdir -p /srv/nginx/.well-known/acme-challenge
 sudo chmod -R 755 /srv/nginx/.well-known/acme-challenge
 
@@ -57,18 +57,18 @@ sudo systemctl daemon-reload
 # Setup nginx-create-session-ticket-keys
 unpriv curl https://raw.githubusercontent.com/GrapheneOS/infrastructure/main/nginx-create-session-ticket-keys | sudo tee /usr/local/bin/nginx-create-session-ticket-keys
 ## Explicitly using /var/usrlocal/bin here because SELinux does not follow symlinks
-sudo semanage fcontext -a -t bin_t /var/usrlocal/bin/nginx-create-session-ticket-keys
-sudo restorecon /var/usrlocal/bin/nginx-create-session-ticket-keys
-sudo chmod u+x /var/usrlocal/bin/nginx-create-session-ticket-keys
-echo 'restorecon -Rv /etc/nginx/session-ticket-keys' | sudo tee -a /usr/local/bin/nginx-create-session-ticket-keys
+sudo semanage fcontext -a -t bin_t $(realpath /usr/local/bin/nginx-create-session-ticket-keys)
+sudo restorecon $(realpath /usr/local/bin/nginx-create-session-ticket-keys)
+sudo chmod u+x $(realpath /usr/local/bin/nginx-create-session-ticket-keys)
+echo 'restorecon -Rv /etc/nginx/session-ticket-keys' | sudo tee -a $(realpath /usr/local/bin/nginx-create-session-ticket-keys)
 
 # Setup nginx-rotate-session-ticket-keys
 unpriv curl https://raw.githubusercontent.com/GrapheneOS/infrastructure/main/nginx-rotate-session-ticket-keys | sudo tee /usr/local/bin/nginx-rotate-session-ticket-keys
 ## Explicitly using /var/usrlocal/bin here because SELinux does not follow symlinks
-sudo semanage fcontext -a -t bin_t /var/usrlocal/bin/nginx-rotate-session-ticket-keys
-sudo restorecon -Rv /var/usrlocal/bin/nginx-rotate-session-ticket-keys
-sudo chmod u+x /var/usrlocal/bin/nginx-rotate-session-ticket-keys
-sudo sed -i '$i restorecon -Rv /etc/nginx/session-ticket-keys' /var/usrlocal/bin/nginx-rotate-session-ticket-keys
+sudo semanage fcontext -a -t bin_t $(realpath /usr/local/bin/nginx-rotate-session-ticket-keys)
+sudo restorecon -Rv $(realpath /usr/local/bin/nginx-rotate-session-ticket-keys)
+sudo chmod u+x $(realpath /usr/local/bin/nginx-rotate-session-ticket-keys)
+sudo sed -i '$i restorecon -Rv /etc/nginx/session-ticket-keys' $(realpath /usr/local/bin/nginx-rotate-session-ticket-keys)
 
 # Download the units
 unpriv curl https://raw.githubusercontent.com/GrapheneOS/infrastructure/main/systemd/system/certbot-ocsp-fetcher.service | sudo tee /etc/systemd/system/certbot-ocsp-fetcher.service
