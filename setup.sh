@@ -82,7 +82,6 @@ unpriv curl https://raw.githubusercontent.com/TommyTran732/NGINX-Configs/main/et
 sudo systemctl daemon-reload
 
 # Enable the units
-sudo systemctl enable certbot-ocsp-fetcher.timer
 sudo systemctl enable --now nginx-create-session-ticket-keys.service
 sudo systemctl enable --now nginx-rotate-session-ticket-keys.timer
 
