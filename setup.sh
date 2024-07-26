@@ -28,7 +28,7 @@ unpriv(){
 sudo setsebool -P httpd_can_network_connect 1
 
 # Allow QUIC
-sudp semanage port -a -t http_port_t -p udp 443
+sudo semanage port -a -t http_port_t -p udp 443
 
 # Open ports for NGINX
 sudo firewall-cmd --permanent --add-service=http
