@@ -81,13 +81,13 @@ if grep -q rhel /etc/os-release; then
 else
     unpriv curl -s https://raw.githubusercontent.com/GrapheneOS/infrastructure/main/nginx-create-session-ticket-keys | sudo tee /usr/local/bin/nginx-create-session-ticket-keys > /dev/null
 fi
-## Explicitly using /var/usrlocal/bin here because SELinux does not follow symlinks
+## Set the appropriate SELinux context for session ticket keys creation
 sudo semanage fcontext -a -t bin_t "$(realpath /usr/local/bin/nginx-create-session-ticket-keys)"
 sudo restorecon "$(realpath /usr/local/bin/nginx-create-session-ticket-keys)"
 sudo chmod u+x "$(realpath /usr/local/bin/nginx-create-session-ticket-keys)"
 echo 'restorecon -Rv /etc/nginx/session-ticket-keys' | sudo tee -a "$(realpath /usr/local/bin/nginx-create-session-ticket-keys)"
 
-# Setup nginx-rotate-session-ticket-keys
+# Set the appropriate SELinux context for session ticket keys rotation
 unpriv curl -s https://raw.githubusercontent.com/GrapheneOS/infrastructure/main/nginx-rotate-session-ticket-keys | sudo tee /usr/local/bin/nginx-rotate-session-ticket-keys > /dev/null
 ## Explicitly using /var/usrlocal/bin here because SELinux does not follow symlinks
 sudo semanage fcontext -a -t bin_t "$(realpath /usr/local/bin/nginx-rotate-session-ticket-keys)"
