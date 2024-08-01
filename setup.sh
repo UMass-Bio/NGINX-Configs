@@ -72,7 +72,7 @@ sudo chmod -R 755 /srv/nginx/.well-known/acme-challenge
 # NGINX hardening
 sudo mkdir -p /etc/systemd/system/nginx.service.d
 unpriv curl -s https://raw.githubusercontent.com/GrapheneOS/infrastructure/main/systemd/system/nginx.service.d/local.conf | sudo tee /etc/systemd/system/nginx.service.d/override.conf > /dev/null
-chmod 644 /etc/systemd/system/nginx.service.d/override.conf
+sudo chmod 644 /etc/systemd/system/nginx.service.d/override.conf
 sudo systemctl daemon-reload
 
 # Setup nginx-create-session-ticket-keys
