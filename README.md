@@ -1,6 +1,6 @@
 # NGINX Configs
 
-[![ShellCheck](https://github.com/TommyTran732/NGINX-Configs/actions/workflows/shellcheck.yml/badge.svg)](https://github.com/TommyTran732/Linux-Setup-Scripts/actions/workflows/shellcheck.yml)
+[![ShellCheck](https://github.com/UMass-Bio/NGINX-Configs/actions/workflows/shellcheck.yml/badge.svg)](https://github.com/UMass-Bio/NGINX-Configs/actions/workflows/shellcheck.yml)
 
 These are my NGINX configurations. They are written for mainline NGINX on RHEL.
 
