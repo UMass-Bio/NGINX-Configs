@@ -1,19 +1,5 @@
 #!/bin/sh
 
-# Copyright (C) 2024 Thien Tran
-#
-# Licensed under the Apache License, Version 2.0 (the "License"); you may not
-# use this file except in compliance with the License. You may obtain a copy of
-# the License at
-#
-# http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
-# WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
-# License for the specific language governing permissions and limitations under
-# the License.
-
 set -eu
 
 output(){
@@ -76,11 +62,8 @@ sudo chmod 644 /etc/systemd/system/nginx.service.d/override.conf
 sudo systemctl daemon-reload
 
 # Setup nginx-create-session-ticket-keys
-if grep -q rhel /etc/os-release; then
-    unpriv curl -s https://raw.githubusercontent.com/TommyTran732/NGINX-Configs/main/scripts/nginx-create-session-ticket-keys-ramfs | sudo tee /usr/local/bin/nginx-create-session-ticket-keys > /dev/null
-else
-    unpriv curl -s https://raw.githubusercontent.com/GrapheneOS/infrastructure/main/nginx-create-session-ticket-keys | sudo tee /usr/local/bin/nginx-create-session-ticket-keys > /dev/null
-fi
+unpriv curl -s https://raw.githubusercontent.com/TommyTran732/NGINX-Configs/main/scripts/nginx-create-session-ticket-keys-ramfs | sudo tee /usr/local/bin/nginx-create-session-ticket-keys > /dev/null
+
 ## Set the appropriate SELinux context for session ticket keys creation
 sudo semanage fcontext -a -t bin_t "$(realpath /usr/local/bin/nginx-create-session-ticket-keys)"
 sudo restorecon "$(realpath /usr/local/bin/nginx-create-session-ticket-keys)"
