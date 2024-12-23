@@ -67,7 +67,7 @@ sudo chmod 644 /etc/systemd/system/nginx.service.d/override.conf
 sudo systemctl daemon-reload
 
 # Setup nginx-create-session-ticket-keys
-mkdir -p /etc/nginx/session-ticket-keys
+sudo mkdir -p /etc/nginx/session-ticket-keys
 unpriv curl -s https://raw.githubusercontent.com/UMass-Bio/NGINX-Configs/main/scripts/nginx-create-session-ticket-keys-ramfs | sudo tee /usr/local/bin/nginx-create-session-ticket-keys > /dev/null
 
 ## Set the appropriate SELinux context for session ticket keys creation
